@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Build Factory X (BFX) | Custom PCs & Laptop Service in Vellore</title>
+    <meta name="description" content="Build Factory X (BFX) is your top PC shop in Vellore for custom-built PCs, pre-built systems, laptop servicing, and high-quality accessories. Power your performance with our expert builds and reliable service.">
+    <meta name="keywords" content="custom pc vellore, pc shop vellore, laptop service vellore, pc builder, gaming pc, build factory x, bfx, pc accessories, computer repair vellore">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom Styles and Configuration for Tailwind -->
+    <style>
+        /* Custom styles for the tech theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; /* Dark background */
+            color: #e5e7eb; /* Light gray text */
+        }
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .bg-gradient-tech {
+            background: linear-gradient(90deg, #0d1a3a 0%, #0c1a30 100%);
+        }
+        .bg-gradient-header {
+             background: rgba(10, 10, 10, 0.8);
+             backdrop-filter: blur(10px);
+        }
+        .text-glow {
+            text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* --- NEW Card Hover and Glow Effect --- */
+        .card-bg {
+            background-color: rgba(23, 37, 84, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(5px);
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit; /* Use the same border-radius as the card */
+            border: 1px solid transparent;
+            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.3), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .card-bg:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-primary {
+            @apply px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg transition-all duration-300 transform;
+        }
+        .btn-primary:hover {
+            @apply bg-blue-700 shadow-blue-500/50 scale-105;
+        }
+        .section-title {
+            @apply text-3xl md:text-4xl font-bold text-center mb-2 font-orbitron text-white;
+        }
+        .section-subtitle {
+            @apply text-center text-gray-400 mb-12 max-w-2xl mx-auto;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        /* Form input focus animation */
+        .form-input {
+            @apply w-full bg-gray-900/50 border border-gray-600 rounded-lg py-2 px-3 text-white transition-all duration-300;
+        }
+        .form-input:focus {
+            @apply outline-none ring-2 ring-tech-blue border-transparent;
+        }
+        
+        /* Nav link hover effect */
+        .nav-link {
+            @apply relative text-gray-300 hover:text-tech-blue transition-colors duration-300;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background-color: #3b82f6;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        /* GSAP Initial States */
+        .gsap-fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        'tech-blue': '#3b82f6',
+                        'tech-dark': '#0a0a0a',
+                        'tech-light': '#e5e7eb',
+                        'tech-mid': '#172554',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-tech-dark">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-gradient-header fixed w-full z-50 top-0 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home">
+                <img src='https://i.postimg.cc/SRvt41gx/11zon-cropped.png' alt="Build Factory X Logo" class="h-10">
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#contact" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-all duration-300">Contact Us</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-tech-mid">
+            <a href="#services" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-tech-blue hover:text-white">Services</a>
+            <a href="#products" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-tech-blue hover:text-white">Products</a>
+            <a href="#reviews" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-tech-blue hover:text-white">Reviews</a>
+            <a href="#contact" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-tech-blue hover:text-white">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)), url('https://placehold.co/1920x1080/0a0a0a/3b82f6?text=BFX');">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white font-orbitron mb-4 gsap-fade-up">
+                    Build Factory <span class="text-tech-blue text-glow">X</span>
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto gsap-fade-up">
+                    Expertly Crafted Custom PCs to Power Your Performance
+                </p>
+                <a href="#contact" class="btn-primary inline-block gsap-fade-up">
+                    Get Your Custom PC Today
+                </a>
+                <p class="mt-12 text-gray-400 gsap-fade-up">Vellore's Premier Destination for PC Building, Servicing, and Accessories.</p>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-tech-dark">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gsap-fade-up">Our Professional Services</h2>
+                <p class="section-subtitle gsap-fade-up">From bespoke builds to expert repairs, we provide a complete suite of professional PC solutions.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="card-bg p-8 rounded-xl text-center gsap-fade-up">
+                        <div class="text-tech-blue mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Custom PC Building</h3>
+                        <p class="text-gray-400">PCs tailored for any budget and purpose, from gaming rigs to professional workstations. Includes a 2-year comprehensive warranty.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="card-bg p-8 rounded-xl text-center gsap-fade-up">
+                         <div class="text-tech-blue mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Pre-Built PCs</h3>
+                        <p class="text-gray-400">Reliable and ready-to-use systems from top brands like Dell, HP, and more. Perfect for home and office use.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="card-bg p-8 rounded-xl text-center gsap-fade-up">
+                         <div class="text-tech-blue mb-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V4m0 16v-2M12 12l-2 2-2-2m4 4l-2-2-2 2m4-4l2-2 2 2m-4-4l2 2 2-2"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Hardware & Laptop Service</h3>
+                        <p class="text-gray-400">Expert diagnostics, repairs, and upgrades for all PC hardware and laptops to get you back up and running fast.</p>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="card-bg p-8 rounded-xl text-center gsap-fade-up">
+                         <div class="text-tech-blue mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">PC/Laptop Accessories</h3>
+                        <p class="text-gray-400">A wide range of quality-tested accessories with warranty, including SSDs with 3-5 years coverage.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-20 bg-gradient-tech">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gsap-fade-up">Our Builds & Products</h2>
+                <p class="section-subtitle gsap-fade-up">Explore our curated selection of high-performance custom builds and reliable branded systems, all crafted with precision and quality.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Product Card 1 -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/pLt3L42m/Gaming-pc.jpg" alt="Gaming PC Build" class="w-full h-56 object-cover"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">Custom Gaming PCs</h3>
+                            <p class="text-gray-400 mt-2">Built for gamers, by gamers. We create high-performance rigs for any budget, focusing on quality components and clean aesthetics.</p>
+                            <div class="mt-4 text-lg font-semibold text-tech-blue">Starts from any budget</div>
+                        </div>
+                    </div>
+                     <!-- Product Card 2 -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/K8JQhH4S/Work-pc.jpg" alt="Workstation PC" class="w-full h-56 object-cover"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">Custom Workstations</h3>
+                            <p class="text-gray-400 mt-2">Powerful and reliable machines tailored to your professional workflow. We optimize for performance at your desired price point.</p>
+                            <div class="mt-4 text-lg font-semibold text-tech-blue">Built for your budget</div>
+                        </div>
+                    </div>
+                     <!-- Product Card 3 -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/hPQ2xrCV/normal-pc.png" alt="Home and Office PC Build" class="w-full h-56 object-cover"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">Home & Office PCs</h3>
+                            <p class="text-gray-400 mt-2">Reliable and cost-effective custom PCs for daily use, streaming, and productivity. Built with quality parts to fit your specific needs.</p>
+                            <div class="mt-4 text-lg font-semibold text-tech-blue">Tailored for your needs</div>
+                        </div>
+                    </div>
+                    <!-- Product Card 4 -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/7YqgPnFx/81-Lp4d-VJDd-L-AC-SL1500.jpg" alt="Branded Pre-built PC" class="w-full h-56 object-cover"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">Branded Pre-Built PCs</h3>
+                            <p class="text-gray-400 mt-2">Get started right away with dependable systems from top brands like Dell and HP. Ideal for home, office, and students.</p>
+                            <div class="mt-4 text-lg font-semibold text-tech-blue">Various models available</div>
+                        </div>
+                    </div>
+                    <!-- Product Card 5 -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/vTf3R8x3/Monitor.jpg" alt="High-Performance Monitor" class="w-full h-56 object-cover"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">High-Performance Monitors</h3>
+                            <p class="text-gray-400 mt-2">Complete your setup with our range of high-refresh-rate gaming monitors and color-accurate displays for professional work.</p>
+                            <div class="mt-4 text-lg font-semibold text-tech-blue">All major brands</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Offers Section -->
+        <section id="offers" class="py-20 bg-tech-dark">
+            <div class="container mx-auto px-6">
+                 <div class="bg-blue-900/40 border border-blue-500/50 rounded-xl p-8 md:p-12 text-center gsap-fade-up">
+                    <h2 class="section-title !mb-4">Special Offer</h2>
+                    <p class="text-gray-300 mb-6 max-w-2xl mx-auto">For a limited time, receive a complimentary gaming mouse with any custom PC build valued over ₹60,000.</p>
+                    <a href="#contact" class="btn-primary">Claim Offer Now</a>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews Section -->
+        <section id="reviews" class="py-20 bg-gradient-tech">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gsap-fade-up">Customer Testimonials</h2>
+                <p class="section-subtitle gsap-fade-up">We are dedicated to quality and satisfaction. See what our valued clients have to say about their BFX experience.</p>
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                     <!-- Review Card 1 -->
+                    <div class="card-bg p-8 rounded-lg gsap-fade-up">
+                        <p class="text-gray-300 italic">"Amazing service! The team at BFX built my dream gaming PC within my budget. The performance is incredible. Highly recommended shop in Vellore."</p>
+                        <div class="mt-4 font-bold text-white">- Geetha</div>
+                    </div>
+                     <!-- Review Card 2 -->
+                    <div class="card-bg p-8 rounded-lg gsap-fade-up">
+                        <p class="text-gray-300 italic">"My laptop was running slow and overheating. BFX fixed it in a day and it feels brand new. Very professional and transparent pricing."</p>
+                        <div class="mt-4 font-bold text-white">- Anand S.</div>
+                    </div>
+                     <!-- Review Card 3 -->
+                    <div class="card-bg p-8 rounded-lg gsap-fade-up">
+                        <p class="text-gray-300 italic">"Bought a pre-built HP desktop for my office. The process was smooth and the BFX team helped me choose the perfect one. Great support."</p>
+                        <div class="mt-4 font-bold text-white">- Priya K.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-tech-dark">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gsap-fade-up">Get In Touch</h2>
+                <p class="section-subtitle gsap-fade-up">Ready to start your build or have a question? Our team is here to provide expert assistance. Contact us today.</p>
+                <div class="flex flex-wrap -mx-4">
+                    <!-- Contact Info & Map -->
+                    <div class="w-full lg:w-1/2 px-4 mb-12 lg:mb-0 gsap-fade-up">
+                        <div class="card-bg p-8 rounded-lg h-full">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Contact Information</h3>
+                            <div class="space-y-4 text-gray-300">
+                                <p class="flex items-center">
+                                    <svg class="w-6 h-6 mr-3 text-tech-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    <span>Phone/WhatsApp: 9944408977 / 9342985269</span>
+                                </p>
+                                <p class="flex items-center">
+                                    <svg class="w-6 h-6 mr-3 text-tech-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <span>Email: buildfactoryx@gmail.com</span>
+                                </p>
+                                <p class="flex items-start">
+                                     <svg class="w-6 h-6 mr-3 text-tech-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <span>Location: V4J8+5JC, Saradha Nagar, Bagayam, Vellore, Tamil Nadu 632002</span>
+                                </p>
+                            </div>
+                            <div class="mt-6 rounded-lg overflow-hidden">
+                                <iframe 
+                                    src="https://maps.google.com/maps?q=V4J8%2B5JC%2C%20Saradha%20Nagar%2C%20Bagayam%2C%20Vellore%2C%20Tamil%20Nadu%20632002&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                    width="100%" 
+                                    height="250" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contact Form -->
+                    <div class="w-full lg:w-1/2 px-4 gsap-fade-up">
+                        <div class="card-bg p-8 rounded-lg h-full">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Send a Message</h3>
+                            <form id="contact-form">
+                                <div class="mb-4">
+                                    <label for="name" class="block text-gray-300 mb-2">Your Name</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-gray-300 mb-2">Your Email</label>
+                                    <input type="email" id="email" name="email" class="form-input" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="message" class="block text-gray-300 mb-2">Message</label>
+                                    <textarea id="message" name="message" rows="5" class="form-input" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full btn-primary">
+                                    Submit Inquiry
+                                </button>
+                                <p id="form-status" class="text-center mt-4"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-tech border-t border-blue-900/50">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="mb-6 md:mb-0">
+                    <a href="#home">
+                         <img src='https://i.postimg.cc/SRvt41gx/11zon-cropped.png' alt="Build Factory X Logo" class="h-12 mx-auto md:mx-0 mb-2">
+                    </a>
+                    <p class="text-gray-400">Your Trusted PC Partner in Vellore.</p>
+                    <p class="text-gray-400 mt-2 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 text-tech-blue" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v5.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1V8a1 1 0 00-1-1h-5z" /></svg>
+                        Free delivery within Vellore. Safe courier options available for other locations (charges apply).
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center">
+                     <div class="mb-6 md:mb-0">
+                        <h4 class="font-bold text-white mb-2">Quick Links</h4>
+                        <a href="#services" class="nav-link block">Services</a>
+                        <a href="#products" class="nav-link block">Products</a>
+                        <a href="#contact" class="nav-link block">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-8 pt-6 border-t border-blue-900/50">
+                &copy; <span id="year"></span> Build Factory X. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                header.classList.toggle('bg-gradient-header', window.scrollY > 50);
+            });
+
+            // Contact Form Submission
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                formStatus.textContent = 'Sending...';
+                formStatus.style.color = 'white';
+                setTimeout(() => {
+                    formStatus.textContent = 'Thank you! Your message has been sent.';
+                    formStatus.style.color = 'lightgreen';
+                    contactForm.reset();
+                    setTimeout(() => formStatus.textContent = '', 5000);
+                }, 1000);
+            });
+
+            // --- GSAP ANIMATIONS ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- HERO & FADE UP ANIMATIONS ---
+            gsap.utils.toArray('.gsap-fade-up').forEach((elem, i) => {
+                gsap.fromTo(elem, 
+                    { opacity: 0, y: 40 }, 
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: 'power3.out',
+                        delay: elem.classList.contains('section-title') || elem.classList.contains('section-subtitle') ? 0 : 0.1 + (i * 0.1), // Stagger hero elements
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 90%',
+                            toggleActions: 'play none none none'
+                        }
+                    }
+                );
+            });
+
+            // --- Card Hover & Glow Effect ---
+            const cards = document.querySelectorAll(".card-bg");
+            cards.forEach((card) => {
+                card.addEventListener("mousemove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty("--mouse-x", `${x}px`);
+                    card.style.setProperty("--mouse-y", `${y}px`);
+
+                    // 3D Tilt Effect
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20; // Adjust divisor for sensitivity
+                    const rotateY = (centerX - x) / 20;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+
+                card.addEventListener("mouseleave", () => {
+                    card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
+
