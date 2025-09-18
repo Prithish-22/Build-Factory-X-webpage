@@ -9,6 +9,9 @@
     <meta name="description" content="Build Factory X (BFX) is your top PC shop in Vellore for custom-built PCs, pre-built systems, laptop servicing, and high-quality accessories. Power your performance with our expert builds and reliable service.">
     <meta name="keywords" content="custom pc vellore, pc shop vellore, laptop service vellore, pc builder, gaming pc, build factory x, bfx, pc accessories, computer repair vellore">
     
+    <!-- Preload critical assets -->
+    <link rel="preload" as="image" href="https://placehold.co/1920x1080/0a0a0a/3b82f6?text=BFX">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,9 +20,9 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- GSAP Animation Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- GSAP Animation Library (Deferred for performance) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     
     <!-- Custom Styles and Configuration for Tailwind -->
     <style>
@@ -36,8 +39,8 @@
             background: linear-gradient(90deg, #0d1a3a 0%, #0c1a30 100%);
         }
         .bg-gradient-header {
-             background: rgba(10, 10, 10, 0.8);
-             backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
         }
         .text-glow {
             text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 20px rgba(59, 130, 246, 0.5);
@@ -77,6 +80,17 @@
         .btn-primary:hover {
             @apply bg-blue-700 shadow-blue-500/50 scale-105;
         }
+        
+        /* New Shop Now Button Style */
+        .btn-shop {
+            @apply px-8 py-3 text-white font-bold rounded-lg shadow-lg transition-all duration-300 transform;
+            background: linear-gradient(45deg, #10B981, #34D399);
+        }
+        .btn-shop:hover {
+            @apply shadow-green-400/50 scale-105;
+            background: linear-gradient(45deg, #059669, #10B981);
+        }
+
         .section-title {
             @apply text-3xl md:text-4xl font-bold text-center mb-2 font-orbitron text-white;
         }
@@ -156,7 +170,7 @@
     <header id="header" class="bg-gradient-header fixed w-full z-50 top-0 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home">
-                <img src='https://i.postimg.cc/SRvt41gx/11zon-cropped.png' alt="Build Factory X Logo" class="h-10">
+                <img src='https://i.postimg.cc/SRvt41gx/11zon-cropped.png' alt="Build Factory X Logo" class="h-10" loading="lazy" decoding="async">
             </a>
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 items-center">
@@ -189,9 +203,17 @@
                 <p class="text-lg md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto gsap-fade-up">
                     Expertly Crafted Custom PCs to Power Your Performance
                 </p>
-                <a href="#contact" class="btn-primary inline-block gsap-fade-up">
+                <a href="#contact" class="btn-primary inline-block gsap-fade-up mb-8">
                     Get Your Custom PC Today
                 </a>
+
+                <!-- New Box for Shop Now -->
+                <div class="mt-4 max-w-lg mx-auto bg-blue-900/40 border border-blue-500/50 rounded-xl p-6 gsap-fade-up">
+                    <p class="text-lg text-gray-200 mb-4">Ready to buy or check our latest components?</p>
+                    <a href="https://forms.gle/ys7XXQpVetUsH7TQ9" target="_blank" class="btn-shop inline-block">
+                       Shop Now
+                   </a>
+               </div>
                 <p class="mt-12 text-gray-400 gsap-fade-up">Vellore's Premier Destination for PC Building, Servicing, and Accessories.</p>
             </div>
         </section>
@@ -246,7 +268,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Product Card 1 -->
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
-                        <div class="overflow-hidden"><img src="https://i.postimg.cc/pLt3L42m/Gaming-pc.jpg" alt="Gaming PC Build" class="w-full h-56 object-cover"></div>
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/pLt3L42m/Gaming-pc.jpg" alt="Gaming PC Build" class="w-full h-56 object-cover" loading="lazy" decoding="async"></div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white">Custom Gaming PCs</h3>
                             <p class="text-gray-400 mt-2">Built for gamers, by gamers. We create high-performance rigs for any budget, focusing on quality components and clean aesthetics.</p>
@@ -255,7 +277,7 @@
                     </div>
                      <!-- Product Card 2 -->
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
-                        <div class="overflow-hidden"><img src="https://i.postimg.cc/K8JQhH4S/Work-pc.jpg" alt="Workstation PC" class="w-full h-56 object-cover"></div>
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/K8JQhH4S/Work-pc.jpg" alt="Workstation PC" class="w-full h-56 object-cover" loading="lazy" decoding="async"></div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white">Custom Workstations</h3>
                             <p class="text-gray-400 mt-2">Powerful and reliable machines tailored to your professional workflow. We optimize for performance at your desired price point.</p>
@@ -264,7 +286,7 @@
                     </div>
                      <!-- Product Card 3 -->
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
-                        <div class="overflow-hidden"><img src="https://i.postimg.cc/hPQ2xrCV/normal-pc.png" alt="Home and Office PC Build" class="w-full h-56 object-cover"></div>
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/hPQ2xrCV/normal-pc.png" alt="Home and Office PC Build" class="w-full h-56 object-cover" loading="lazy" decoding="async"></div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white">Home & Office PCs</h3>
                             <p class="text-gray-400 mt-2">Reliable and cost-effective custom PCs for daily use, streaming, and productivity. Built with quality parts to fit your specific needs.</p>
@@ -273,7 +295,7 @@
                     </div>
                     <!-- Product Card 4 -->
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
-                        <div class="overflow-hidden"><img src="https://i.postimg.cc/7YqgPnFx/81-Lp4d-VJDd-L-AC-SL1500.jpg" alt="Branded Pre-built PC" class="w-full h-56 object-cover"></div>
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/7YqgPnFx/81-Lp4d-VJDd-L-AC-SL1500.jpg" alt="Branded Pre-built PC" class="w-full h-56 object-cover" loading="lazy" decoding="async"></div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white">Branded Pre-Built PCs</h3>
                             <p class="text-gray-400 mt-2">Get started right away with dependable systems from top brands like Dell and HP. Ideal for home, office, and students.</p>
@@ -282,7 +304,7 @@
                     </div>
                     <!-- Product Card 5 -->
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg gsap-fade-up">
-                        <div class="overflow-hidden"><img src="https://i.postimg.cc/vTf3R8x3/Monitor.jpg" alt="High-Performance Monitor" class="w-full h-56 object-cover"></div>
+                        <div class="overflow-hidden"><img src="https://i.postimg.cc/vTf3R8x3/Monitor.jpg" alt="High-Performance Monitor" class="w-full h-56 object-cover" loading="lazy" decoding="async"></div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white">High-Performance Monitors</h3>
                             <p class="text-gray-400 mt-2">Complete your setup with our range of high-refresh-rate gaming monitors and color-accurate displays for professional work.</p>
@@ -334,9 +356,9 @@
             <div class="container mx-auto px-6">
                 <h2 class="section-title gsap-fade-up">Get In Touch</h2>
                 <p class="section-subtitle gsap-fade-up">Ready to start your build or have a question? Our team is here to provide expert assistance. Contact us today.</p>
-                <div class="flex flex-wrap -mx-4">
+                <div class="flex flex-wrap -mx-4 justify-center">
                     <!-- Contact Info & Map -->
-                    <div class="w-full lg:w-1/2 px-4 mb-12 lg:mb-0 gsap-fade-up">
+                    <div class="w-full px-4 mb-12 lg:mb-0 gsap-fade-up">
                         <div class="card-bg p-8 rounded-lg h-full">
                             <h3 class="text-2xl font-bold mb-6 text-white">Contact Information</h3>
                             <div class="space-y-4 text-gray-300">
@@ -357,37 +379,13 @@
                                 <iframe 
                                     src="https://maps.google.com/maps?q=V4J8%2B5JC%2C%20Saradha%20Nagar%2C%20Bagayam%2C%20Vellore%2C%20Tamil%20Nadu%20632002&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                                     width="100%" 
-                                    height="250" 
+                                    height="350" 
                                     style="border:0;" 
                                     allowfullscreen="" 
                                     loading="lazy" 
                                     referrerpolicy="no-referrer-when-downgrade">
                                 </iframe>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Contact Form -->
-                    <div class="w-full lg:w-1/2 px-4 gsap-fade-up">
-                        <div class="card-bg p-8 rounded-lg h-full">
-                            <h3 class="text-2xl font-bold mb-6 text-white">Send a Message</h3>
-                            <form id="contact-form">
-                                <div class="mb-4">
-                                    <label for="name" class="block text-gray-300 mb-2">Your Name</label>
-                                    <input type="text" id="name" name="name" class="form-input" required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="email" class="block text-gray-300 mb-2">Your Email</label>
-                                    <input type="email" id="email" name="email" class="form-input" required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="message" class="block text-gray-300 mb-2">Message</label>
-                                    <textarea id="message" name="message" rows="5" class="form-input" required></textarea>
-                                </div>
-                                <button type="submit" class="w-full btn-primary">
-                                    Submit Inquiry
-                                </button>
-                                <p id="form-status" class="text-center mt-4"></p>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -401,7 +399,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 <div class="mb-6 md:mb-0">
                     <a href="#home">
-                         <img src='https://i.postimg.cc/SRvt41gx/11zon-cropped.png' alt="Build Factory X Logo" class="h-12 mx-auto md:mx-0 mb-2">
+                         <img src='https://i.postimg.cc/SRvt41gx/11zon-cropped.png' alt="Build Factory X Logo" class="h-12 mx-auto md:mx-0 mb-2" loading="lazy" decoding="async">
                     </a>
                     <p class="text-gray-400">Your Trusted PC Partner in Vellore.</p>
                     <p class="text-gray-400 mt-2 text-sm">
@@ -417,6 +415,14 @@
                         <a href="#contact" class="nav-link block">Contact</a>
                     </div>
                 </div>
+            </div>
+            <!-- New Box for Shop Now in Footer -->
+            <div class="mt-10 bg-blue-900/40 border border-blue-500/50 rounded-xl p-8 text-center">
+                <h3 class="text-2xl font-bold text-white mb-3">Explore Our Products</h3>
+                <p class="text-gray-300 mb-6 max-w-md mx-auto">Click the button below to browse our full catalog and place an order directly.</p>
+                <a href="https://forms.gle/ys7XXQpVetUsH7TQ9" target="_blank" class="btn-shop inline-block">
+                    Shop Now
+                </a>
             </div>
             <div class="text-center text-gray-500 mt-8 pt-6 border-t border-blue-900/50">
                 &copy; <span id="year"></span> Build Factory X. All Rights Reserved.
@@ -446,42 +452,30 @@
                 header.classList.toggle('bg-gradient-header', window.scrollY > 50);
             });
 
-            // Contact Form Submission
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                formStatus.textContent = 'Sending...';
-                formStatus.style.color = 'white';
-                setTimeout(() => {
-                    formStatus.textContent = 'Thank you! Your message has been sent.';
-                    formStatus.style.color = 'lightgreen';
-                    contactForm.reset();
-                    setTimeout(() => formStatus.textContent = '', 5000);
-                }, 1000);
-            });
-
             // --- GSAP ANIMATIONS ---
-            gsap.registerPlugin(ScrollTrigger);
+            // Ensure GSAP and ScrollTrigger are loaded before running this code
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
 
-            // --- HERO & FADE UP ANIMATIONS ---
-            gsap.utils.toArray('.gsap-fade-up').forEach((elem, i) => {
-                gsap.fromTo(elem, 
-                    { opacity: 0, y: 40 }, 
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
-                        ease: 'power3.out',
-                        delay: elem.classList.contains('section-title') || elem.classList.contains('section-subtitle') ? 0 : 0.1 + (i * 0.1), // Stagger hero elements
-                        scrollTrigger: {
-                            trigger: elem,
-                            start: 'top 90%',
-                            toggleActions: 'play none none none'
+                gsap.utils.toArray('.gsap-fade-up').forEach((elem, i) => {
+                    gsap.fromTo(elem, 
+                        { opacity: 0, y: 40 }, 
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1,
+                            ease: 'power3.out',
+                            delay: elem.classList.contains('section-title') || elem.classList.contains('section-subtitle') ? 0 : 0.1 + (i * 0.1), // Stagger hero elements
+                            scrollTrigger: {
+                                trigger: elem,
+                                start: 'top 90%',
+                                toggleActions: 'play none none none'
+                            }
                         }
-                    }
-                );
-            });
+                    );
+                });
+            }
+
 
             // --- Card Hover & Glow Effect ---
             const cards = document.querySelectorAll(".card-bg");
@@ -510,4 +504,3 @@
     </script>
 </body>
 </html>
-
